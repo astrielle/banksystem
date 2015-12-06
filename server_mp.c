@@ -437,7 +437,7 @@ int main(int argc, char** argv){
 				perror("ERROR shared memory detach failed\n");
 			}
 			
-			close(newfd);
+			//close(newfd);
 			//exit(0);
 		}
 
