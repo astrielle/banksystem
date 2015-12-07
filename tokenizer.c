@@ -56,7 +56,6 @@
 
 	/*reached end of str*/
  	if (tk->index == inputLen){
- 		//printf("END OF STR\n");
  		return NULL;
  	}
 
@@ -68,7 +67,6 @@
  		curr++;
 
  		if (curr >= inputLen){
- 			//printf("ALL WHITE SPACE\n");
  			return NULL;
  		}
  	}
@@ -86,7 +84,6 @@
  		token[tokenLen] = '\0';
  		tk->index = curr;
 
- 		//printf("TOKEN: %s LENGTH: %d\n", token, tokenLen);
  		return token;
  	}
 
