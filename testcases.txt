@@ -1,0 +1,92 @@
+Systems Programming Fall 2015
+Brian Russell
+PA5: Bank System
+
+Michelle Chen mc1481
+Emily Ng em140
+
+*****TEST CASES*****
+1) Open account that already exists:
+	Open error: An account with that name already exists.
+2) Open account with name > 100 characters:
+	The account name must be shorter than 100 characters.
+3) Start non-existent account:
+	Start error: There is no account with that name.
+4) Start account that is in session elsewhere:
+	*sem_trywait() with sleep(2) outputs:
+	Account is already in session. Trying again...
+	Account is already in session. Trying again...
+	until other session is finished
+5) Start account when current client process is already in session:
+	Start error: There is another active account session on this process.
+6) Credit, debit, balance, or finish when no account is in session:
+	Error: An account is not in session. Please start an account session first.
+7) Open more than 20 accounts:
+	Open error: The bank is full and cannot accept new accounts.
+8) Open new account while session is active:
+	Open error: Cannot open new account while account session is active.
+9) Debit more than current balance:
+	Debit error: You do not have enough funds. Your current balance is (balance).
+10) Open account w/o name:
+	Please specify an account name.
+
+11)Regular operation:
+
+input:
+./server
+output:
+Listen success: waiting for client connections...
+Waiting for connections...
+
+input:
+./client java.cs.rutgers.edu
+client output:
+Connected to server 0.0.0.0 at port 4999
+
+Welcome to The Bank. Please choose one of the following options:
+ "open <accountname>",
+ "start <accountname>",
+ "credit <amount>",
+ "debit <amount>",
+ "balance",
+ "finish",
+ or "exit".
+server output:
+Accepted connection from client!
+Connection number: 1
+--FORK--
+PARENT PROCESS 28473!
+CHILD PROCESS 28533 (my parent is 28473)
+
+input: open hello
+client output: Successfully opened account hello.
+
+input: start hello
+client output: Successfully started session for hello.
+
+server timed print: Account: hello, Balance: 0.00 IN SERVICE
+
+input: credit 10.50
+client output: Successful credit of 10.50. Your new balance is 10.50.
+
+server timed print: Account: hello, Balance: 10.50 IN SERVICE
+
+
+input: debit 5.76
+client output: Successful debit of 5.76. Your new balance is 4.74.
+
+server timed print: Account: hello, Balance: 4.74 IN SERVICE
+
+input: balance
+client output: Your current balance is: 4.74.
+
+server timed print: Account: hello, Balance: 4.74 IN SERVICE
+
+input: finish
+client output: Finishing session for hello.
+
+server timed print: Account: hello, Balance: 4.74
+
+input: exit
+client output: Goodbye
+

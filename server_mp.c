@@ -48,7 +48,7 @@ void sig_alrm_hand(int signo){
     sigprocmask (SIG_BLOCK, &alarmset, NULL); //block more alarm signals from coming in
     printbank(); 
     sigprocmask (SIG_UNBLOCK, &alarmset, NULL);//unblock alarm signals 
-    alarm(10);
+    alarm(20);
 }
 
 /* Signal handler to reap zombie processes */
@@ -411,7 +411,7 @@ int main(int argc, char** argv){
 		    sigalrm.sa_handler = sig_alrm_hand;
 		    sigalrm.sa_flags = SA_RESTART; 
 		    sigaction(SIGALRM, &sigalrm, NULL);
-		    alarm(10);
+		    alarm(20);
 
 		}
 		else{
@@ -420,17 +420,6 @@ int main(int argc, char** argv){
 		}
 	}
 
-  /* int status;
-     pid_t p;
-     while (counter > 0) {
-     p = wait(&status);
-     printf("Child with PID %ld exited with status 0x%x.\n", (long)p, status);
-     --counter;  
-     printf("counter at wait: %d\n");
-     }
-  */
-
-  //Never reaches this point because still looping??
      printf("SERVER DISCONNTECTED\n");
 
      close(sockfd);
